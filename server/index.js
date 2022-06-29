@@ -8,7 +8,7 @@ const authRouter = require("./routes/auth");
 const app = express();
 const PORT =3000;
 // mongoose database
-const DB = "mongodb+srv://jenil:qazx@cluster0.ueh7j.mongodb.net/?retryWrites=true&w=majority";
+const DB = "mongodb+srv://jenil:<>@cluster0.ueh7j.mongodb.net/?retryWrites=true&w=majority";
 app.use(express.json());
 app.use(authRouter);
 mongoose.connect(DB).then(()=>{
