@@ -10,6 +10,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_app/providers/user_provider.dart';
 
+import '../../../common/widgets/bottom_bar.dart';
+
 class AuthService {
   // sign up user
   void signUpUser({
@@ -70,14 +72,14 @@ class AuthService {
         response: res,
         context: context,
         onSuccess: () async {
-          /*         SharedPreferences prefs = await SharedPreferences.getInstance();
-     Provider.of<UserProvider>(context, listen: false).setUser(res.body);
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          Provider.of<UserProvider>(context, listen: false).setUser(res.body);
           await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
           Navigator.pushNamedAndRemoveUntil(
             context,
             BottomBar.routeName,
             (route) => false,
-          ); */
+          );
         },
       );
     } catch (e) {

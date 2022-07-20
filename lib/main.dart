@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:shopping_app/Constants/global_variables.dart';
 import 'package:shopping_app/Features/auth/screens/auth_screen.dart';
 import 'package:shopping_app/router.dart';
+import 'Features/auth/services/auth_service.dart';
+import 'common/widgets/bottom_bar.dart';
 import 'providers/user_provider.dart';
 
 void main() {
@@ -13,10 +15,22 @@ void main() {
   ], child: const MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
+  final AuthService authService = AuthService();
+
+  @override
+  void initState() {
+    super.initState();
+    authService.getUserData(context);
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,7 +47,11 @@ class MyApp extends StatelessWidget {
             )),
       ),
       onGenerateRoute: (settings) => generateRoute(settings),
-      home: AuthScreen(),
+      home: Provider.of<UserProvider>(context).user.token.isNotEmpty
+          ? Provider.of<UserProvider>(context).user.type == 'user'
+              ? const BottomBar()
+              : const AdminScreen()
+          : const AuthScreen(),
     );
   }
 }
